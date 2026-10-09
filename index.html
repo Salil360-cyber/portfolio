@@ -511,7 +511,7 @@ dialog.cs::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(4px)}
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="cta">
-      <a class="btn sm" href="assets/Salil_Gokhale_Resume.pdf" download><i data-i="download"></i>Download CV</a>
+      <a class="btn sm cvlink" href="assets/Salil_Gokhale_Resume.pdf" download="Salil_Gokhale_Resume.pdf"><i data-i="download"></i>Download CV</a>
       <a class="btn sm primary" href="#contact">Let's talk</a>
     </div>
   </div>
@@ -805,7 +805,7 @@ dialog.cs::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(4px)}
         
         <div class="cf-alt" id="cfAlt">
           <p>The fastest way to reach me is email or LinkedIn. I reply within a day.</p>
-          <a class="btn" href="assets/Salil_Gokhale_Resume.pdf" download><i data-i="download"></i>Download my CV</a>
+          <a class="btn cvlink" href="assets/Salil_Gokhale_Resume.pdf" download="Salil_Gokhale_Resume.pdf"><i data-i="download"></i>Download my CV</a>
         </div>
       </div>
     </div>
@@ -1501,6 +1501,18 @@ const track = (function(){
     el.innerHTML = list.map(([t,d,ids0]) => { const ids = ids0.filter(name); if(!ids.length) return ""; return `<div class="cap"><h3>${esc(t)}</h3><p>${esc(d)}</p><div class="proof">${ids.filter(name).map(id => `<button type="button" data-cap="${id}">${esc(name(id))}</button>`).join("")}</div></div>`; }).join("");
     el.querySelectorAll("[data-cap]").forEach(b => b.addEventListener("click", () => openCase(b.dataset.cap)));
   }
+  // CV per view: assets/Salil_Gokhale_Resume_<Domain>.pdf if uploaded, otherwise the general CV
+  const CV_FILES = {all:"Salil_Gokhale_Resume.pdf", risk:"Salil_Gokhale_Resume_Risk.pdf", health:"Salil_Gokhale_Resume_Healthcare.pdf",
+    aviation:"Salil_Gokhale_Resume_Aviation.pdf", mr:"Salil_Gokhale_Resume_MarketResearch.pdf", hr:"Salil_Gokhale_Resume_HR.pdf", logistics:"Salil_Gokhale_Resume_Logistics.pdf"};
+  const cvOk = {};
+  function updateCV(){
+    const want = "assets/" + (CV_FILES[mode] || CV_FILES.all), fallback = "assets/" + CV_FILES.all;
+    const set = h => document.querySelectorAll(".cvlink").forEach(a => a.setAttribute("href", h));
+    if(want === fallback){ set(fallback); return; }
+    if(cvOk[want] !== undefined){ set(cvOk[want] ? want : fallback); return; }
+    set(fallback);
+    try{ fetch(want, {method:"HEAD", cache:"no-store"}).then(r => { cvOk[want] = r.ok; if(r.ok && ("assets/" + CV_FILES[mode]) === want) set(want); }).catch(() => { cvOk[want] = false; }); }catch(e){}
+  }
   // show only what belongs to the current view
   function applyScope(){
     const strict = mode !== "all";
@@ -1511,7 +1523,7 @@ const track = (function(){
     document.querySelectorAll("[data-scope]").forEach(el => { const sc = el.dataset.scope; el.hidden = !(mode === "all" || sc === "all" || sc.split(" ").includes(mode)); });
     const f = $("#expFoot"); if(f) f.textContent = "Bars show how many of the projects on this page use each tool.";
   }
-  function renderAll(){ renderHero(); renderExpertise(); renderDomains(); renderFilters(); renderGrid(); renderCaps(); applyScope(); }
+  function renderAll(){ renderHero(); renderExpertise(); renderDomains(); renderFilters(); renderGrid(); renderCaps(); applyScope(); updateCV(); }
 
   const dlg = $("#cs");
   function openCase(id){
@@ -1588,7 +1600,7 @@ const track = (function(){
     const href = a.getAttribute("href") || "";
     if(/github\.com/.test(href)) track("click/github" + (href.split("github.com")[1] || ""), "GitHub click");
     else if(/linkedin\.com/.test(href)) track("click/linkedin", "LinkedIn click");
-    else if(/Resume\.pdf$/.test(href)) track("click/cv-download", "CV download");
+    else if(/Resume(_\w+)?\.pdf$/.test(href)) track("click/cv-download", "CV download: " + mode);
     else if(/tableau|novypro/i.test(href)) track("click/live-dashboard", "Live dashboard click");
   });
   const cp = $("#copyBtn"); if(cp) cp.addEventListener("click", () => track("click/copy-email", "Email copied"));
