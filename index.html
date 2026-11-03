@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Salil Gokhale Portfolio</title>
-<meta name="description" content="Salil Gokhale, Data Analyst: SQL, Excel, Power BI, Tableau, Python and AI, with projects in banking and risk, market research, aviation and logistics.">
+<meta name="description" content="Salil Gokhale, Data Analyst: SQL, Excel, Power BI, Tableau, Python and AI, with projects in banking and risk, market research, aviation, logistics, HR and retail sales.">
 <meta name="author" content="Salil Gokhale">
 <meta name="theme-color" content="#040609">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -14,7 +14,7 @@
 <link rel="canonical" href="https://salil360-cyber.github.io/portfolio/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Salil Gokhale | Data Analyst, Risk &amp; AML">
-<meta property="og:description" content="Salil Gokhale, Data Analyst: SQL, Excel, Power BI, Tableau, Python and AI, with projects in banking and risk, market research, aviation and logistics.">
+<meta property="og:description" content="Salil Gokhale, Data Analyst: SQL, Excel, Power BI, Tableau, Python and AI, with projects in banking and risk, market research, aviation, logistics, HR and retail sales.">
 <meta property="og:url" content="https://salil360-cyber.github.io/portfolio/">
 <meta property="og:image" content="https://salil360-cyber.github.io/portfolio/assets/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -554,7 +554,7 @@ dialog.cs::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(4px)}
       <div class="phead"><h2 class="ptitle"><span class="ic"><i data-i="user"></i></span>About me</h2></div>
       <div class="me"><div class="avatar"><div class="clip"><img src="assets/profile.webp" alt="Salil Gokhale" width="720" height="911"></div></div><div><h3>Salil Gokhale</h3><p id="aboutRole">Data Analyst · Business Analyst · AI Generalist</p></div></div>
       <p>I studied <b>Microbiology</b>, where I learned to treat every result as evidence that has to hold up. I now apply that habit to data: I am pursuing an <b>MBA in Data Science &amp; Business Analytics</b> and building end-to-end projects across SQL, Excel, Power BI, Tableau and Python.</p>
-      <p id="aboutFocus">I have built end-to-end projects in <b>banking and risk, market research, aviation and logistics</b>, all with code on GitHub, so I can pick up a new domain's data quickly. In every project I check the numbers before I report them. I use AI tools every day to clean data faster, draft queries and turn analysis into clear reports.</p>
+      <p id="aboutFocus">I have built end-to-end projects in <b>banking and risk, market research, aviation, logistics, HR and retail sales</b>, so I can pick up a new domain's data quickly. In every project I check the numbers before I report them. I use AI tools every day to clean data faster, draft queries and turn analysis into clear reports.</p>
       <div class="info">
         <div><span class="ic"><i data-i="user"></i></span><span><small>Name</small>Salil Gokhale</span></div>
         <div><span class="ic"><i data-i="pin"></i></span><span><small>Based in</small>Gondia, Maharashtra</span></div>
@@ -686,6 +686,7 @@ dialog.cs::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(4px)}
         <div class="skill" data-scope="risk"><h3>Risk concepts <small>BFSI</small></h3><p>AML alerts, NPA/SMA, DPD, GNPA and PAR 30, settlement failures and reconciliation breaks.</p></div>
         <div class="skill" data-scope="mr"><h3>Research <small>Market</small></h3><p>Questionnaire design, survey QC, banner tables, segmentation and Van Westendorp pricing.</p></div>
         <div class="skill" data-scope="aviation"><h3>Airline operations <small>Aviation</small></h3><p>Passenger satisfaction by class and travel type, service drivers and the effect of delays.</p></div>
+        <div class="skill" data-scope="hr"><h3>HR analytics <small>Workforce</small></h3><p>Attrition rate vs share of leavers, drivers such as overtime, job level and pay, satisfaction scores and age bands.</p></div>
         <div class="skill" data-scope="logistics"><h3>Supply chain <small>Logistics</small></h3><p>Late-delivery root cause, delivery promises vs actual days, and receiving discrepancy investigation.</p></div>
         <div class="skill"><h3>Communication <small>Reports</small></h3><p>STAR-format write-ups, READMEs, PowerPoint findings decks.</p></div>
       </div>
@@ -972,7 +973,56 @@ const PROJECTS = [
    rec:"Reset First and Second Class delivery promises or fix the process behind them, and work the receiving case list from P1 (nothing received) down.",
    dq:"9 data-quality issues handled: empty product description, 86% missing zipcode, masked customer fields, one category label covering two categories, 3 customers with shifted addresses, trailing spaces, Spanish country names, canceled orders carrying shipping days, and markets with different date ranges.",
    charts:[],
-   shots:[], repo:"https://github.com/Salil360-cyber/DockCheck-Shipment-Investigation", live:""}
+   shots:[], repo:"https://github.com/Salil360-cyber/DockCheck-Shipment-Investigation", live:""},
+  {id:"hr-analytics", main:true, d:"hr", feat:true, name:"HR Analytics Dashboard", sub:"Employee attrition and workforce profile in Tableau",
+   text:"A Tableau dashboard that tracks headcount, attrition, age profile, job satisfaction and attrition by department, education field, gender and age group, with an education filter and an adjustable age-bin parameter.",
+   scope:"1,470 employees · 237 leavers · 3 departments · 9 job roles · 6 education fields",
+   dataNote:"IBM HR Analytics sample dataset (fictional): one row per employee with attrition flag, demographics, role, pay, overtime, travel and satisfaction scores.",
+   tools:["Tableau","Calculated fields","Parameters","Excel"], status:"Guided course project · Tableau dashboard built",
+   problem:"HR leadership wants to know how big the attrition problem is, which departments and groups lose the most people, and what to act on first to keep staff.",
+   approach:["Prepared the Excel data with calculated fields for age band, attrition label and current-employee flag","Built KPI tiles (employees, leavers, attrition rate, active employees, average age) and six views: department, age distribution with an age-bin parameter, job satisfaction by role, education field, gender and gender by age group","Wrote a story answering 10 business questions, from overall workforce status to which segments drive attrition","Re-checked every view in Python, compared counts with rates, and tested other drivers in the data"],
+   lenses:[
+     ["Workforce","1,470 employees, 1,233 active, average age 36.9."],
+     ["Attrition","237 leavers, 16.1% overall."],
+     ["Department","Sales 20.6%, HR 19.0%, R&D 13.8%. R&D has the most leavers only because it is 65% of staff."],
+     ["Age","Under-25s leave at 39.2%, twice the 25–34 rate (20.2%); 35–54 is about 10%."],
+     ["Education","HR (25.9%), Technical Degree (24.2%) and Marketing (22.0%) lead; Life Sciences 14.7%, Medical 13.6%."],
+     ["Work pattern","Overtime 30.5% vs 10.4%; frequent travellers 24.9%; job level 1 26.3%."],
+     ["Satisfaction","Job satisfaction 1 leaves at 22.8%, satisfaction 4 at 11.3%."],
+     ["Data quality","3 columns never vary (Employee Count, Over18, Standard Hours); the dashboard's attrition charts show counts and shares, not rates."]
+   ],
+   findings:[
+     "<b>The biggest bars aren't the biggest problem.</b> The education and department charts count leavers, so Life Sciences, Medical and R&D look worst. By rate they're among the lowest (14.7%, 13.6%, 13.8%); HR graduates (25.9%), Technical Degree (24.2%) and Sales (20.6%) leave fastest. Life Sciences and Medical are simply 73% of staff.",
+     "<b>Under-25s leave fastest.</b> The gender-by-age donuts show each group's share of all 237 leavers, which points to 25–34 (47%). As a rate, 39.2% of under-25s leave (38 of 97), about twice the 25–34 rate (20.2%) and four times 35–54 (10%).",
+     "<b>Overtime is the strongest driver, and it's not on the dashboard.</b> Employees on overtime leave at 30.5% vs 10.4% and make up 54% of leavers from 28% of staff. Job level 1 (26.3%), no stock options (24.4%) and frequent travel (24.9%) also stand out."
+   ],
+   rec:"Show attrition as a rate next to the counts, add overtime, job level and travel views, and focus retention on overtime-heavy, entry-level and under-25 employees, especially Sales Representatives (39.8% attrition).",
+   dq:"This is IBM's public HR Analytics sample dataset, which is fictional. Gender makes little difference (male 17.0%, female 14.8%, not significant). Leavers earn a median 3,202 a month vs 5,204 for those who stay, but pay overlaps with job level, so the two can't be separated in a simple comparison.",
+   charts:["assets/projects/hr-analytics-count-vs-rate.png","assets/projects/hr-analytics-age.png","assets/projects/hr-analytics-drivers.png"],
+   shots:["assets/projects/hr-analytics-dashboard.jpg"], repo:"", live:""},
+  {id:"adidas", main:true, d:"retail", name:"Adidas US Sales Dashboard", sub:"Sales, profit and channel performance in Power BI",
+   text:"A one-page Power BI dashboard of Adidas US sales: KPI cards, monthly trend, state map, and sales by region, product and retailer, with year, sales-method and month slicers.",
+   scope:"Adidas US sales dataset · 2020–2021 · $899.90M total sales · 18M units",
+   dataNote:"Public Adidas US sales dataset (Kaggle): sales by retailer, region, state, city, product and sales method.",
+   tools:["Power BI","DAX","Power Query"], status:"Guided course project · Power BI dashboard built",
+   problem:"Sales leadership wants one view of how much Adidas sells in the US, where and through whom, and how profitable it is.",
+   approach:["Cleaned and shaped the data in Power Query","Wrote DAX measures for total sales, total profit, units sold, average price per unit and profit margin","Built a monthly trend, a state map and region, product and retailer breakdowns","Added slicers for year, sales method (in-store, online, outlet) and month, with a clear-all button"],
+   lenses:[
+     ["Headline","$899.90M sales, $332.13M profit, 18M units, average price $45.22 a unit."],
+     ["Season","Sales peak in July ($95M) and August ($92M); March is the low ($57M)."],
+     ["Region","West is the largest region at 29.97% of sales."],
+     ["Product","Men's Street Footwear leads at about $0.21bn."],
+     ["Retailer","West Gear ($0.24bn) and Foot Locker ($0.22bn) are the top retailers."]
+   ],
+   findings:[
+     "<b>$899.90M</b> in sales and <b>$332.13M</b> profit from <b>18M units</b>, at an average price of <b>$45.22</b> a unit.",
+     "Sales peak in <b>July ($95M)</b> and August ($92M) and dip to <b>$57M in March</b>, so stock and promotions should follow the summer peak.",
+     "<b>West</b> is the biggest region (29.97% of sales), <b>Men's Street Footwear</b> the top product and <b>West Gear</b> the top retailer."
+   ],
+   rec:"Plan inventory and campaigns around the July–August peak, protect the West region and the top two retailers, and lead with Men's Street Footwear.",
+   dq:"Built as a guided project in a course. Figures are read from the dashboard over the full 2020–2021 period with no slicers applied.",
+   charts:[],
+   shots:["assets/projects/adidas-dashboard.png"], repo:"", live:""}
 ];
 
 /* ---- analytics: page views + which projects, domains and links people use ---- */
@@ -1034,39 +1084,46 @@ const track = (function(){
     logistics: {name:"Logistics", short:"Logistics", color:"var(--logistics)", glow:"rgba(127,209,196,.10)",
                 role:"Data Analyst · Supply Chain Analytics · AI Generalist",
                 pitch:"I investigate shipment data in SQL to find why orders are late and where units go missing.",
-                desc:"Late-delivery root cause and receiving discrepancy investigation in SQL."}
+                desc:"Late-delivery root cause and receiving discrepancy investigation in SQL."},
+    hr:        {name:"HR & Workforce", short:"HR", color:"var(--hr)", glow:"rgba(242,143,173,.10)",
+                role:"Data Analyst · HR & Workforce Analytics · AI Generalist",
+                pitch:"I analyse workforce data to show who leaves, why they leave and where HR should act first.",
+                desc:"Attrition, workforce profile and employee satisfaction dashboards."},
+    retail:    {name:"Retail & Sales", short:"Retail", color:"var(--accent)", glow:"rgba(107,235,251,.10)",
+                role:"Data Analyst · Sales Analytics · AI Generalist",
+                pitch:"I turn sales data into dashboards that show where revenue and profit come from.",
+                desc:"Sales, profit, region, product and retailer dashboards."}
   };
-  const DEFAULT_ORDER = ["risk","aviation","mr","logistics"];
+  const DEFAULT_ORDER = ["risk","aviation","mr","hr","logistics","retail"];
   // one portfolio, six views: "all" is the default general Data Analyst view
   const MODES = {
     all:      {label:"Data Analyst (general)", short:"Data Analytics", color:"var(--accent)",
                role:"Data Analyst · Business Analyst · AI Generalist",
                intro:"a data analyst who turns raw data into checked numbers and clear decisions",
-               pitch:"I clean, validate and analyse data across banking and risk, market research, aviation and logistics, then turn it into findings and recommendations managers act on.",
+               pitch:"I clean, validate and analyse data across banking and risk, market research, aviation, logistics, HR and retail sales, then turn it into findings and recommendations managers act on.",
                aboutRole:"Data Analyst · Business Analyst · AI Generalist",
-               about:"I have built end-to-end projects in <b>banking and risk, market research, aviation and logistics</b>, all with code on GitHub, so I can pick up a new domain's data quickly. In every project I check the numbers before I report them. I use AI tools every day to clean data faster, draft queries and turn analysis into clear reports.",
-               contact:"Hiring for a Data Analyst, Business Analyst or MIS role? I would like to hear from you.",
-               caps:[0,1,2,3,6,4,5,8,9,7]},
+               about:"I have built end-to-end projects in <b>banking and risk, market research, aviation, logistics, HR and retail sales</b>, so I can pick up a new domain's data quickly. In every project I check the numbers before I report them. I use AI tools every day to clean data faster, draft queries and turn analysis into clear reports.",
+               contact:"Hiring for a Data Analyst, Business Analyst or MIS role? I would like to hear from you."},
     risk:     {label:"Risk, AML & Credit", intro:"a data analyst focused on risk, AML and credit analytics",
                aboutRole:"Data Analyst · Risk & AML · AI Generalist",
                about:"My main focus is <b>risk, AML, credit risk and operations analytics</b> in banking and financial services. I have also built projects in market research, aviation and logistics. I use AI tools every day to clean data faster, draft queries and turn analysis into clear reports.",
-               contact:"Hiring for a Data Analyst, Risk, AML or credit analytics role? I would like to hear from you.",
-               caps:[7,0,1,6,5,2,8,4,3,9]},
+               contact:"Hiring for a Data Analyst, Risk, AML or credit analytics role? I would like to hear from you."},
     aviation: {label:"Aviation", intro:"a data analyst focused on airline and aviation analytics",
                aboutRole:"Data Analyst · Aviation Analytics · AI Generalist",
                about:"My main focus is <b>aviation analytics</b>: passenger satisfaction, service drivers and what to fix first. I have also built projects in banking and risk, market research and logistics. I use AI tools every day to clean data faster, draft queries and turn analysis into clear reports.",
-               contact:"Hiring for a Data Analyst or airline analytics role? I would like to hear from you.",
-               caps:[2,4,9,0,1,3,6,8,5,7]},
+               contact:"Hiring for a Data Analyst or airline analytics role? I would like to hear from you."},
     mr:       {label:"Market Research", intro:"a data analyst focused on market research and data validation",
                aboutRole:"Data Analyst · Market Research · AI Generalist",
                about:"My main focus is <b>market research and data quality</b>: survey design, quality control, significance testing, segmentation and pricing. I have also built projects in banking and risk, aviation and logistics. I use AI tools every day to clean data faster, draft queries and turn analysis into clear reports.",
-               contact:"Hiring for a Data Analyst, Market Research or Data Validation role? I would like to hear from you.",
-               caps:[0,8,3,9,2,4,1,6,5,7]},
+               contact:"Hiring for a Data Analyst, Market Research or Data Validation role? I would like to hear from you."},
     logistics:{label:"Logistics", intro:"a data analyst focused on logistics and supply chain analytics",
                aboutRole:"Data Analyst · Supply Chain Analytics · AI Generalist",
                about:"My main focus is <b>logistics and supply chain analytics</b>: late-delivery root causes and receiving discrepancies. I have also built projects in banking and risk, market research and aviation. I use AI tools every day to clean data faster, draft queries and turn analysis into clear reports.",
-               contact:"Hiring for a Data Analyst or supply chain analytics role? I would like to hear from you.",
-               caps:[1,8,2,0,4,3,6,9,5,7]}
+               contact:"Hiring for a Data Analyst or supply chain analytics role? I would like to hear from you."},
+    hr:       {label:"HR & Workforce", intro:"a data analyst focused on HR and workforce analytics",
+               aboutRole:"Data Analyst · HR Analytics · AI Generalist",
+               about:"My main focus is <b>HR and workforce analytics</b>: attrition, who leaves and why, employee satisfaction and workforce profile. I have also built projects in banking and risk, aviation, market research, logistics and retail sales. I use AI tools every day to clean data faster, draft queries and turn analysis into clear reports.",
+               contact:"Hiring for a Data Analyst or HR analytics role? I would like to hear from you."}
   };
   // domain modes reuse the role, pitch, name and colour from DOMAINS
   Object.keys(MODES).forEach(k => { if(DOMAINS[k]) MODES[k] = Object.assign({role:DOMAINS[k].role, pitch:DOMAINS[k].pitch, short:DOMAINS[k].short, color:DOMAINS[k].color}, MODES[k]); });
@@ -1237,13 +1294,14 @@ const track = (function(){
     ["Data cleaning & validation","Profiling, cleaning and cross-checking data before it reaches a report.",["sentineliq","creditpulse","dockcheck","chargingbharat","cabinpressure"]],
     ["SQL querying & data modelling","Schemas, joins, CTEs and window functions in PostgreSQL.",["dockcheck","creditpulse","sentineliq","cabinpressure"]],
     ["Reconciliation & controls","Matching two sources, classifying breaks and building a sign-off control.",["recondesk"]],
+    ["Dashboards & KPI reporting","KPI design and one-page dashboards in Power BI and Tableau.",["adidas","hr-analytics"]],
     ["Survey research","Questionnaire design, QC checks, banner tables and top-2-box scoring.",["chargingbharat","cabinpressure"]],
     ["Statistical analysis","Chi-square and z-tests, correlation, and checking whether a gap is real or noise.",["chargingbharat","cabinpressure","creditpulse"]],
     ["Predictive modelling & ML","Logistic regression, K-means segmentation, scorecard AUC and back-tested forecasts.",["cabinpressure","chargingbharat","creditpulse","sentineliq"]],
     ["Python automation","Rule engines and pipelines that score data and export reports in one run.",["recondesk","sentineliq","creditpulse"]],
     ["Risk & controls analysis","Credit risk, NPA/SMA, AML rules, settlement failures and control gaps.",["sentineliq","creditpulse","recondesk"]],
     ["Root-cause & audit","Tracing a wrong number back to the rule, tolerance or promise that caused it.",["dockcheck","recondesk","creditpulse"]],
-    ["Reporting & storytelling","Findings turned into recommendations managers can act on.",["cabinpressure","chargingbharat","sentineliq"]]
+    ["Reporting & storytelling","Findings turned into recommendations managers can act on.",["cabinpressure","chargingbharat","sentineliq","hr-analytics"]]
   ];
   function renderCaps(){
     const el = $("#caps"); if(!el) return;
