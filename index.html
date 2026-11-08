@@ -882,7 +882,7 @@ const PROJECTS = [
    rec:"Retire R5, raise R1 to 2 payments, review alerts in score order, and design new rules for the three-quarters of suspicious activity that no rule sees today.",
    dq:"After 10 Sep the file thins to 1,108 transfers, 655 of them laundering. Keeping that tail would inflate every precision figure, so it was removed along with self-transfers. Model figures move slightly with library versions (77–78% in the top 30%); rule and package counts are exact.",
    charts:["assets/projects/signalovernoise-package.png","assets/projects/signalovernoise-precision.png","assets/projects/signalovernoise-capture.png","assets/projects/signalovernoise-datatail.png"],
-   shots:[], repo:"https://github.com/Salil360-cyber/signal-over-noise-aml-alert-tuning", live:""},
+   shots:[], repo:"https://github.com/Salil360-cyber/signal-over-noise-aml-alert-tuning", live:"https://salil360-cyber.github.io/signal-over-noise-aml-alert-tuning/", liveLabel:"Interactive explorer"},
   {id:"creditpulse", main:true, d:"risk", name:"CreditPulse", sub:"Loan portfolio and credit risk analytics",
    text:"Credit risk for a fictional NBFC from application to repayment: underwriting rules, RBI-style asset classification from current DPD, GNPA and PAR 30, vintage curves and a scorecard tested against real repayment.",
    scope:"5,000 applications · 2,608 loans · 48,263 EMI records · ₹110.98 Cr outstanding · as of 30 Sep 2026",
@@ -1450,7 +1450,7 @@ const track = (function(){
     if(p.shots && p.shots.length) h += `<div class="cs-sec"><h4>Dashboard</h4><div class="cs-shots">${p.shots.map(s=>`<img src="${esc(s)}" alt="${esc(p.name)} dashboard" loading="lazy">`).join("")}</div></div>`;
     if(p.dq) h += `<div class="cs-sec"><h4>${/forecast/i.test(p.dq)?"Data quality and forecast":"Data quality"}</h4><p>${esc(p.dq)}</p></div>`;
     h += `<div class="cs-sec"><h4>Tools</h4><div class="tools">${p.tools.map(t=>`<span>${esc(t)}</span>`).join("")}${p.ai?'<span class="ai">AI / ML</span>':''}</div>${p.status?`<div class="pstatus" style="margin-top:10px">${esc(p.status)}</div>`:''}</div>`;
-    h += `<div class="cs-links"><a class="btn primary" href="${esc(p.repo || GH)}" target="_blank" rel="noopener">View code on GitHub ${icon("arrow")}</a>${p.live?`<a class="btn" href="${esc(p.live)}" target="_blank" rel="noopener">Live dashboard ↗</a>`:''}</div>`;
+    h += `<div class="cs-links"><a class="btn primary" href="${esc(p.repo || GH)}" target="_blank" rel="noopener">View code on GitHub ${icon("arrow")}</a>${p.live?`<a class="btn" href="${esc(p.live)}" target="_blank" rel="noopener">${esc(p.liveLabel || "Live dashboard")} ↗</a>`:''}</div>`;
     $("#csBody").innerHTML = h;
     if(typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open","");
   }
