@@ -928,6 +928,30 @@ const PROJECTS = [
    dq:"Matching assumes both sides share a reference ID. Stock breaks are aged 0 days because positions are a daily snapshot. FX rates are fixed illustrative values and the data is synthetic.",
    charts:["assets/projects/recondesk-signoff.png"],
    shots:[], repo:"https://github.com/Salil360-cyber/ReconDesk-Custody-Cash-Stock-Break-Reconciliation", live:""},
+  {id:"invoicedesk", main:true, d:"risk", name:"InvoiceDesk", sub:"AP invoice QA and GST input credit reconciliation",
+   text:"An accounts payable quality review before the half-year close: 18 checks across the vendor master, purchase register, GSTR-2B and payments in Excel and SQL, ending in one exception report with severity, likely cause and next action.",
+   scope:"2,884 invoices · ₹63.0 crore · 99 vendor records · Apr–Sep 2026 · review date 31 Oct 2026",
+   dataNote:"Synthetic data for a fictional manufacturer; every company, PAN and GSTIN is made up. Errors were planted on purpose, and an independent answer key proves the checks find all of them.",
+   tools:["Excel","XLOOKUP","COUNTIFS","SQL","PostgreSQL"], status:"Excel and SQL results match the answer key record by record",
+   problem:"Before the half-year close, finance needs to know: is the vendor master clean, are invoices booked once with the right tax, can the GST input credit be claimed on every invoice, and was every invoice paid correctly and on time?",
+   approach:["Checked the vendor master: GSTIN missing or in the wrong format, PAN not matching the GSTIN, the same supplier created twice","Flagged duplicate invoices on supplier GSTIN + invoice number + total, in booking order, so the first booking is kept","Recalculated GST on every invoice and checked IGST vs CGST + SGST against the supplier's state","Matched every invoice to GSTR-2B on GSTIN and invoice number, and every GSTR-2B line back to the books","Matched invoices to payments (amount paid + TDS vs invoice total) and aged unpaid invoices against payment terms","Built one exception report with severity, likely cause and next action, in Excel and PostgreSQL"],
+   lenses:[
+     ["Vendor master","4 GSTINs missing, 5 in the wrong format, 3 PAN mismatches, and 4 suppliers created twice."],
+     ["Duplicates","24 invoices booked twice (₹44.5 lakh), 6 of them under a duplicate vendor record; none was paid."],
+     ["Tax","15 invoices with the wrong GST amount and 10 with IGST and CGST/SGST mixed up."],
+     ["GSTR-2B","2,760 of 2,884 invoices match; 40 are missing from 2B and 40 differ in amount."],
+     ["Payments","6 invoices paid twice, 8 overpaid, 18 underpaid, 20 unpaid past their due date."],
+     ["TDS","8 professional-fee and rent payments had no TDS deducted."]
+   ],
+   findings:[
+     "<b>₹9.58 lakh</b> of GST input credit is at risk on <b>40 invoices</b> that suppliers have not reported in GSTR-2B; 10 suppliers hold 80% of it.",
+     "<b>6 invoices were paid twice</b> (₹10.08 lakh paid extra) and 20 invoices worth ₹45.2 lakh are unpaid past their due date, up to 166 days late.",
+     "<b>24 duplicate invoices</b> (₹44.5 lakh) were caught before payment. The root cause: <b>4 suppliers exist twice</b> in the vendor master under name variants."
+   ],
+   rec:"Recover the double payments and reverse the duplicate bookings first, chase the 10 suppliers holding most of the credit at risk, merge the duplicate vendors, and run these checks every month before the payment run.",
+   dq:"All 279 exceptions were compared with an answer key built by a separate rule engine: Excel and SQL match it record by record. 40 amount mismatches = 25 where the supplier reported a different amount + 15 where the books had the wrong tax, so two checks confirm the same error. The GSTIN check covers format but not the final check character, and TDS is simplified to one 10% rule.",
+   charts:["assets/projects/invoicedesk-money.png","assets/projects/invoicedesk-gst2b.png","assets/projects/invoicedesk-chase.png","assets/projects/invoicedesk-exceptions.png"],
+   shots:[], repo:"https://github.com/Salil360-cyber/invoicedesk-ap-invoice-qa-gst-reconciliation", live:""},
   {id:"duediligence", main:false, d:"risk", name:"Due Diligence Desk", sub:"KYC record review and onboarding tracker in Excel",
    text:"A KYC review of 60 corporate clients in Excel: documents, IDs, registry record, beneficial owners and screening hits checked against written standards, then a risk rating, case status and SLA tracker.",
    scope:"60 clients · 326 documents · 141 people · 115 ownership chains · report date 1 Oct 2026",
@@ -1167,7 +1191,7 @@ const track = (function(){
     risk:      {name:"Risk, AML & Credit", short:"Risk & AML", color:"var(--risk)", glow:"rgba(245,182,66,.10)",
                 role:"Data Analyst · Risk & AML Analytics · AI Generalist",
                 pitch:"I analyse credit, AML and operations data to catch risk early: settlement failures, AML alerts, NPAs and reconciliation breaks.",
-                desc:"AML transaction monitoring and alert tuning, KYC review, credit risk and NPAs, trade operations risk and custody reconciliation."},
+                desc:"AML transaction monitoring and alert tuning, KYC review, credit risk and NPAs, trade operations risk, custody reconciliation and AP invoice / GST reconciliation."},
     aviation:  {name:"Aviation", short:"Aviation", color:"var(--aviation)", glow:"rgba(122,168,255,.11)",
                 role:"Data Analyst · Aviation Analytics · AI Generalist",
                 pitch:"I analyse airline passenger data to find what drives satisfaction and what the airline should fix first.",
@@ -1386,16 +1410,16 @@ const track = (function(){
   function setFilter(f){ filter = f; renderFilters(); renderGrid(); }
 
   const CAPS = [
-    ["Data cleaning & validation","Profiling, cleaning and cross-checking data before it reaches a report.",["signalovernoise","sentineliq","creditpulse","dockcheck","missinglinks","chargingbharat","cabinpressure","duediligence","kycrisk"]],
-    ["SQL querying & data modelling","Schemas, joins, CTEs and window functions in PostgreSQL.",["dockcheck","signalovernoise","creditpulse","sentineliq","missinglinks","cabinpressure"]],
-    ["Reconciliation & controls","Matching two sources, classifying breaks and building a sign-off control.",["recondesk","duediligence"]],
+    ["Data cleaning & validation","Profiling, cleaning and cross-checking data before it reaches a report.",["invoicedesk","signalovernoise","sentineliq","creditpulse","dockcheck","missinglinks","chargingbharat","cabinpressure","duediligence","kycrisk"]],
+    ["SQL querying & data modelling","Schemas, joins, CTEs and window functions in PostgreSQL.",["dockcheck","invoicedesk","signalovernoise","creditpulse","sentineliq","missinglinks","cabinpressure"]],
+    ["Reconciliation & controls","Matching two sources, classifying breaks and building a sign-off control.",["recondesk","invoicedesk","duediligence"]],
     ["Dashboards & KPI reporting","KPI design and one-page dashboards in Power BI and Tableau.",["adidas","hr-analytics"]],
     ["Survey research","Questionnaire design, QC checks, banner tables and top-2-box scoring.",["chargingbharat","cabinpressure"]],
     ["Statistical analysis","Chi-square and z-tests, correlation, and checking whether a gap is real or noise.",["chargingbharat","cabinpressure","creditpulse","missinglinks"]],
     ["Predictive modelling & ML","Logistic regression, K-means segmentation, scorecard AUC and back-tested forecasts.",["signalovernoise","cabinpressure","chargingbharat","creditpulse","sentineliq"]],
     ["Python automation","Rule engines and pipelines that score data and export reports in one run.",["recondesk","signalovernoise","sentineliq","creditpulse","missinglinks"]],
-    ["Risk & controls analysis","Credit risk, NPA/SMA, AML rules, settlement failures and control gaps.",["signalovernoise","sentineliq","creditpulse","recondesk","duediligence","kycrisk"]],
-    ["Root-cause & audit","Tracing a wrong number back to the rule, tolerance or promise that caused it.",["dockcheck","recondesk","signalovernoise","missinglinks","creditpulse"]],
+    ["Risk & controls analysis","Credit risk, NPA/SMA, AML rules, settlement failures and control gaps.",["signalovernoise","sentineliq","creditpulse","recondesk","invoicedesk","duediligence","kycrisk"]],
+    ["Root-cause & audit","Tracing a wrong number back to the rule, tolerance or promise that caused it.",["dockcheck","recondesk","invoicedesk","signalovernoise","missinglinks","creditpulse"]],
     ["Reporting & storytelling","Findings turned into recommendations managers can act on.",["cabinpressure","chargingbharat","signalovernoise","sentineliq","hr-analytics"]]
   ];
   function renderCaps(){
